@@ -1,11 +1,7 @@
 import {RouterState} from 'react-router-redux';
 import {State as CounterState} from './../redux/counters/state';
 
-
-interface StoreEnhancerState {
-}
-
-export interface RootState extends StoreEnhancerState {
+export interface RootState {
     router: RouterState;
     counters: CounterState;
 }

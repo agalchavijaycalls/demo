@@ -1,4 +1,5 @@
 export * from './actions';
-export * from './reducer';
+import reducer from './reducer';
+export {reducer};
 export * from './selectors';
 export * from './state';

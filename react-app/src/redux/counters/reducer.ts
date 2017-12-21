@@ -1,19 +1,37 @@
 import {State} from './state';
-import {RootAction} from './../../redux/root-action';
-import {DECREMENT, INCREMENT} from './../../redux/counters/actions';
-import {combineReducers} from 'redux';
+import {ActionTypes} from './../../redux/counters/actions';
+import {handleActions} from 'redux-actions';
 
-export const reducer = combineReducers<State, RootAction>({
-    counter: (state = 0, action) => {
-        switch (action.type) {
-            case INCREMENT:
-                return state + 1;
+const initialState: State = {
+    counter: 0
+};
 
-            case DECREMENT:
-                return state + 1;
-
-            default:
-                return state;
-        }
+export default handleActions<State, string>({
+    [ActionTypes.INCREMENT]: (state, action) => {
+        return {
+            counter: state.counter + 1
+        };
     },
-});
+
+    [ActionTypes.DECREMENT]: (state, action) => {
+        return {
+            counter: state.counter - 1
+        };
+    },
+}, initialState);
+
+
+// export const reducer = combineReducers<State, RootAction>({
+//     counter: (state = 0, action) => {
+//         switch (action.type) {
+//             case INCREMENT:
+//                 return state + 1;
+//
+//             case DECREMENT:
+//                 return state + 1;
+//
+//             default:
+//                 return state;
+//         }
+//     },
+// });
