@@ -10,7 +10,7 @@ const composeEnhancers = (
     window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
 ) || compose;
 
-export const history = browserHistory();
+const history = browserHistory();
 
 function configureStore(initialState?: RootState) {
     // configure middlewares
@@ -34,4 +34,4 @@ function configureStore(initialState?: RootState) {
 const store = configureStore();
 
 // export store singleton instance
-export default store;
+export {store,history};

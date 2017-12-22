@@ -6,7 +6,7 @@ const initialState: State = {
     counter: 0
 };
 
-export default handleActions<State, string>({
+export default handleActions<State, void>({
     [ActionTypes.INCREMENT]: (state, action) => {
         return {
             counter: state.counter + 1
@@ -19,19 +19,3 @@ export default handleActions<State, string>({
         };
     },
 }, initialState);
-
-
-// export const reducer = combineReducers<State, RootAction>({
-//     counter: (state = 0, action) => {
-//         switch (action.type) {
-//             case INCREMENT:
-//                 return state + 1;
-//
-//             case DECREMENT:
-//                 return state + 1;
-//
-//             default:
-//                 return state;
-//         }
-//     },
-// });
