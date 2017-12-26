@@ -19,13 +19,13 @@ export function saveState(storeState: RootState): boolean {
 
 export function loadState(): RootState | undefined {
     if (!localStorage) {
-        return;
+        return null;
     }
 
     try {
         const serializedState = localStorage.getItem(STORAGE_KEY);
         if (serializedState == null) {
-            return;
+            return null;
         }
         return JSON.parse(serializedState);
     } catch (error) {
