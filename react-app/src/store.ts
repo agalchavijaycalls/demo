@@ -1,9 +1,10 @@
 import {applyMiddleware, compose, createStore, Store} from 'redux';
 import {createEpicMiddleware} from 'redux-observable';
 import {rootEpic, rootReducer, RootState} from './redux/index';
+import thunkMiddleware from 'redux-thunk';
 import browserHistory from 'history/createBrowserHistory';
 import {routerMiddleware} from 'react-router-redux';
-import {logger} from './redux/middleware';
+import {createLogger} from "redux-logger";
 
 const composeEnhancers = (
     process.env.NODE_ENV === 'development' &&
@@ -12,11 +13,12 @@ const composeEnhancers = (
 
 const history = browserHistory();
 
+
 function configureStore(initialState?: RootState) {
     // configure middlewares
 
     const middlewares = [
-        createEpicMiddleware(rootEpic),routerMiddleware(history),logger
+        createEpicMiddleware(rootEpic), routerMiddleware(history), createLogger(), thunkMiddleware
     ];
     // compose enhancers
     const enhancer = composeEnhancers(
@@ -34,4 +36,4 @@ function configureStore(initialState?: RootState) {
 const store = configureStore();
 
 // export store singleton instance
-export {store,history};
+export {store, history};
