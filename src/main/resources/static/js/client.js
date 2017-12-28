@@ -27,7 +27,7 @@ $(function () {
 
     function doLogin(loginData) {
         $.ajax({
-            url: "/auth",
+            url: "http://dHJ1c3RlZC1hcHA6c2VjcmV0/oauth/token",
             type: "POST",
             data: JSON.stringify(loginData),
             contentType: "application/json; charset=utf-8",
@@ -138,6 +138,7 @@ $(function () {
 
         var $form = $(this);
         var formData = {
+            grant_type:password,
             username: $form.find('input[name="username"]').val(),
             password: $form.find('input[name="password"]').val()
         };

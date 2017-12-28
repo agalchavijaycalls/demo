@@ -29,11 +29,12 @@ public class UserDetailsService implements org.springframework.security.core.use
     @Override
     @Transactional
     public UserDetails loadUserByUsername(final String login) {
-        LOG.debug("Authenticating {}", login);
+        LOG.debug("Loading user details for {}", login);
         String lowercaseLogin = login.toLowerCase(Locale.ENGLISH);
         Optional<User> userFromDatabase = userRepository.findOneWithAuthoritiesByUsername(lowercaseLogin);
         return userFromDatabase.map(user -> {
-            List<GrantedAuthority> grantedAuthorities = createGrantedAuthorities(user);           return new org.springframework.security.core.userdetails.User(lowercaseLogin, user.getPassword(), grantedAuthorities);
+            List<GrantedAuthority> grantedAuthorities = createGrantedAuthorities(user);
+            return new org.springframework.security.core.userdetails.User(lowercaseLogin, user.getPassword(), grantedAuthorities);
         }).orElseThrow(() -> new UsernameNotFoundException("User " + lowercaseLogin + " was not found in the " + "database"));
     }
 

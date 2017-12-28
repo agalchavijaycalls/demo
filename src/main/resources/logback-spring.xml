@@ -7,11 +7,15 @@
         <!--<appender-ref ref="FILE"/>-->
     </logger>
 
-    <logger name="org.springframework" level="WARN" additivity="false">
+    <logger name="org.springframework" level="INFO" additivity="false">
         <appender-ref ref="CONSOLE"/>
         <!--<appender-ref ref="FILE"/>-->
     </logger>
-    <logger name="org.hibernate" level="WARN" additivity="false">
+    <logger name="org.springframework.security" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <!--<appender-ref ref="FILE"/>-->
+    </logger>
+    <logger name="org.hibernate" level="INFO" additivity="false">
         <appender-ref ref="CONSOLE"/>
         <!--<appender-ref ref="FILE"/>-->
     </logger>
@@ -21,7 +25,7 @@
         <!--<appender-ref ref="FILE"/>-->
     </logger>
 
-    <root level="WARN" additivity="false">
+    <root level="INFO" additivity="false">
         <appender-ref ref="CONSOLE"/>
     </root>
 </configuration>
