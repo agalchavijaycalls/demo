@@ -1,5 +1,6 @@
 package com.example.demo.restdemo.security;
 
+import com.example.demo.security.SecretKeyProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -42,7 +43,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Bean
     public UserDetailsService userDetailsService(){
-        return new com.example.demo.restdemo.security.UserDetailsService();
+        return new com.example.demo.security.UserDetailsService();
     }
 
     @Override

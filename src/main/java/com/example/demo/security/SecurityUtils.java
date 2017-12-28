@@ -1,4 +1,4 @@
-package com.example.demo.restdemo.security;
+package com.example.demo.security;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;

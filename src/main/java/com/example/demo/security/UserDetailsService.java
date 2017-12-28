@@ -1,4 +1,4 @@
-package com.example.demo.restdemo.security;
+package com.example.demo.security;
 
 import com.example.demo.dao.UserRepository;
 import com.example.demo.domain.Authority;

@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import * as Actions from '../../constants/actions';
+import * as Actions from '../../constants/todo-constants';
 
 export const addTodo = createAction<TodoItemData>(Actions.ADD_TODO);
 export const editTodo = createAction<TodoItemData>(Actions.EDIT_TODO);

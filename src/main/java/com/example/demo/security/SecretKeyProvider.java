@@ -1,4 +1,4 @@
-package com.example.demo.restdemo.security;
+package com.example.demo.security;
 
 import org.springframework.stereotype.Component;
 

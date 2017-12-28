@@ -1,5 +1,7 @@
 package com.example.demo.restdemo.security;
 
+import com.example.demo.security.CustomAuthenticationEntryPoint;
+import com.example.demo.security.CustomLogoutSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
