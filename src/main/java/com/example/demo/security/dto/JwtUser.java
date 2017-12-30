@@ -8,13 +8,13 @@ import java.util.Collection;
 
 public class JwtUser implements UserDetails {
 
-    private  Long id;
-    private  String username;
-    private  String firstname;
-    private  String lastname;
-    private  String password;
-    private  String email;
-    private  Collection<? extends GrantedAuthority> authorities;
+    private Long id;
+    private String username;
+    private String firstname;
+    private String lastname;
+    private String password;
+    private String email;
+    private Collection<? extends GrantedAuthority> authorities;
     private boolean accountNonExpired, accountNonLocked, credentialsNonExpired, enabled;
 
     public JwtUser(Long id,

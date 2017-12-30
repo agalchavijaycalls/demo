@@ -24,15 +24,15 @@ public class BookmarkRestController {
 
     @RequestMapping(method = RequestMethod.GET)
     Collection<Bookmark> readBookmarks(@PathVariable String userId) {
-        logger.debug("Invoked for userId : {}",userId);
+        logger.debug("Invoked for userId : {}", userId);
         Collection<Bookmark> byAccountUsername = this.bookmarkRepository.findByAccountUsername(userId);
-        logger.debug("Found {} Bookmarks for userId {}",byAccountUsername.size(),userId);
+        logger.debug("Found {} Bookmarks for userId {}", byAccountUsername.size(), userId);
         return byAccountUsername;
     }
 
     @RequestMapping(method = RequestMethod.POST)
     ResponseEntity<?> add(@PathVariable String userId, @RequestBody Bookmark input) {
-return null;
+        return null;
 
     }
 

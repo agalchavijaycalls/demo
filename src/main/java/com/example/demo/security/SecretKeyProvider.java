@@ -17,7 +17,7 @@ public class SecretKeyProvider {
 
     public String getKey() throws URISyntaxException,
             KeyStoreException, IOException,
-            NoSuchAlgorithmException, CertificateException, UnrecoverableKeyException{
+            NoSuchAlgorithmException, CertificateException, UnrecoverableKeyException {
         return "Test";
 //        return new String( getKeyPair().getPublic().getEncoded(), "UTF-8" );
     }

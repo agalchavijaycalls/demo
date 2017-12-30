@@ -23,7 +23,7 @@ public final class JwtUserFactory {
                 user.getEmail(),
                 user.getPassword(),
                 mapToGrantedAuthorities(user.getAuthorities())
-                );
+        );
     }
 
     private static List<GrantedAuthority> mapToGrantedAuthorities(Collection<Authority> authorities) {

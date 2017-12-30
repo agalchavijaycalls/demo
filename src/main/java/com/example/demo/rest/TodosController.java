@@ -42,7 +42,7 @@ public class TodosController {
         return todos.stream().filter(todo -> todo.getId() == id).findFirst();
     }
 
-    @RequestMapping(method = POST,  headers = {"Content-type=application/json"})
+    @RequestMapping(method = POST, headers = {"Content-type=application/json"})
     public HttpEntity<Todo> saveTodo(@RequestBody Todo todo) {
         todo.setId(todos.size() + 1);
         todos.add(todo);
@@ -59,7 +59,7 @@ public class TodosController {
     public void deleteOneTodo(@PathVariable("todo-id") long id) {
         Optional<Todo> todoOptional = tryToFindById(id);
 
-        if ( todoOptional.isPresent() ) {
+        if (todoOptional.isPresent()) {
             todos.remove(todoOptional.get());
         }
     }
@@ -68,9 +68,9 @@ public class TodosController {
     public HttpEntity<Todo> updateTodo(@PathVariable("todo-id") long id, @RequestBody Todo newTodo) {
         Optional<Todo> todoOptional = tryToFindById(id);
 
-        if ( !todoOptional.isPresent() ) {
+        if (!todoOptional.isPresent()) {
             return new ResponseEntity<>(NOT_FOUND);
-        } else if ( newTodo == null ) {
+        } else if (newTodo == null) {
             return new ResponseEntity<>(BAD_REQUEST);
         }
 
