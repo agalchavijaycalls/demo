@@ -2,6 +2,7 @@ security:
   oauth2:
     resource:
       id: oauth2_application
+      filter-order: 3
 access_token:
   validity_period: 3600
 refresh_token:

@@ -27,13 +27,17 @@ $(function () {
 
     function doLogin(loginData) {
         $.ajax({
-            url: "http://trusted-app:secret@localhost:8080/oauth/token",
+            url: "http://localhost:8080/oauth/token",
             type: "POST",
-            data: JSON.stringify(loginData),
+            headers: {
+                'Authorization':'Basic dHJ1c3RlZC1hcHA6c2VjcmV0',
+                'Content-Type':'application/x-www-form-urlencoded',
+            },
+            data: loginData,
             contentType: "application/json; charset=utf-8",
-            dataType: "json",
+            // dataType: "json",
             success: function (data, textStatus, jqXHR) {
-                setJwtToken(data.token);
+                setJwtToken(data.access_token);
                 $login.hide();
                 $notLoggedIn.hide();
                 showTokenInformation();
@@ -150,7 +154,7 @@ $(function () {
 
     $("#exampleServiceBtn").click(function () {
         $.ajax({
-            url: "/persons",
+            url: "/todos",
             type: "GET",
             contentType: "application/json; charset=utf-8",
             dataType: "json",

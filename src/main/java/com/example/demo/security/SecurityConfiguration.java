@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -17,6 +18,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.provider.expression.OAuth2MethodSecurityExpressionHandler;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
@@ -43,9 +45,58 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private ApplicationProperties properties;
 
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .userDetailsService(getUserDetailsService())
+                .passwordEncoder(passwordEncoder());
+    }
+
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
+        http
+                .addFilterBefore(corsFilter(), UsernamePasswordAuthenticationFilter.class)
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .csrf()
+                .disable()
+                .headers().frameOptions().disable()
+                .and()
+                .authorizeRequests()
+//                .antMatchers("/api/hello").access("hasAnyRole('USER')")
+//                .antMatchers("/api/me").hasAnyRole("USER", "ADMIN")
+//                .antMatchers("/api/register").hasAuthority("ROLE_REGISTER")
+                .anyRequest().authenticated();
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers(HttpMethod.OPTIONS)
+                .antMatchers("/webjars/**", "/h2-console/**")
+                .antMatchers(
+                        HttpMethod.GET,
+                        "/",
+                        "/*.html",
+                        "/favicon.ico",
+                        "/**/*.html",
+                        "/**/*.css",
+                        "/**/*.js"
+                );
+    }
+
+    @Override
     @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    @EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true)
+    public static class GlobalSecurityConfiguration extends GlobalMethodSecurityConfiguration {
+        @Override
+        public MethodSecurityExpressionHandler createExpressionHandler() {
+            return new OAuth2MethodSecurityExpressionHandler();
+        }
+
     }
 
     @Bean
@@ -62,61 +113,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(passwordEncoder());
-        provider.setUserDetailsService(userDetailsService());
+        provider.setUserDetailsService(getUserDetailsService());
         return provider;
-    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .userDetailsService(getUserDetailsService())
-                .passwordEncoder(passwordEncoder());
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .addFilterBefore(corsFilter(), UsernamePasswordAuthenticationFilter.class)
-        ;
-    }
-
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web
-                .ignoring()
-                .antMatchers("/h2-console/**")
-                .antMatchers("/api/register")
-                .antMatchers("/api/activate")
-                .antMatchers("/api/lostpassword")
-                .antMatchers("/api/resetpassword")
-                .antMatchers("/api/hello");
-    }
-
-//    @Override
-//    public void configure(HttpSecurity http) throws Exception {
-//        http.requestMatcher(new OAuthRequestedMatcher())
-//                .anonymous().disable()
-//                .authorizeRequests()
-//                .antMatchers(HttpMethod.OPTIONS).permitAll()
-//                .antMatchers("/api/hello").access("hasAnyRole('USER')")
-//                .antMatchers("/api/me").hasAnyRole("USER", "ADMIN")
-//                .antMatchers("/api/register").hasAuthority("ROLE_REGISTER");
-//    }
-
-
-    @Override
-    @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
-
-    @EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true)
-    public static class GlobalSecurityConfiguration extends GlobalMethodSecurityConfiguration {
-        @Override
-        public MethodSecurityExpressionHandler createExpressionHandler() {
-            return new OAuth2MethodSecurityExpressionHandler();
-        }
-
     }
 
     @Bean
@@ -154,6 +152,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public org.springframework.security.core.userdetails.UserDetailsService getUserDetailsService() {
         return new com.example.demo.security.UserDetailsService();
+    }
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
 }
