@@ -23,11 +23,8 @@ import org.springframework.web.filter.CorsFilter;
 
 import javax.servlet.http.HttpServletRequest;
 
-
-@Configuration
 @EnableResourceServer
-@EnableGlobalMethodSecurity(prePostEnabled=true)
-public class ResourceConfig extends ResourceServerConfigurerAdapter {
+public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Value("${security.oauth2.resource.id}")
     private String resourceId;
@@ -51,8 +48,6 @@ public class ResourceConfig extends ResourceServerConfigurerAdapter {
                 .tokenServices(tokenServices)
                 .tokenStore(tokenStore);
     }
-
-
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
