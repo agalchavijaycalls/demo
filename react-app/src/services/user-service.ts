@@ -3,7 +3,7 @@ export const userService = {
     login
 };
 
-function login(userName:string, password:string){
+function login(userName:string, password:string):any{
     var myHeaders = new Headers()
     myHeaders.set('Content-Type', 'application/json' );
     const requestOptions:RequestInit = {
