@@ -1,13 +1,8 @@
 import {createAction} from 'redux-actions';
+import {alertActionTypes} from "../../constants";
 
-const SUCCESS = 'SUCCESS';
-const ERROR = 'ERROR';
-const CLEAR = 'CLEAR';
-
-export const ActionTypes = {SUCCESS, ERROR, CLEAR};
-
-export const success = createAction<string>(ActionTypes.SUCCESS);
-export const error = createAction<string>(ActionTypes.ERROR);
-export const clear = createAction(ActionTypes.CLEAR);
+export const success = createAction<string>(alertActionTypes.SUCCESS);
+export const error = createAction<string>(alertActionTypes.ERROR);
+export const clear = createAction(alertActionTypes.CLEAR);
 
 export const Actions = {success, error, clear};

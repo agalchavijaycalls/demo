@@ -5,4 +5,7 @@ export interface RootState {
     router: RouterState;
     counters: CounterState;
     todos: TodoStoreState;
+    alert: any,
+    authentication: any,
+    registration: any
 }

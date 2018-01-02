@@ -1,5 +1,5 @@
 import {handleActions} from 'redux-actions';
-import * as Actions from '../../constants/todo-constants';
+import {todoActionTypes as Actions} from '../../constants/todo-constants';
 
 const initialState: TodoStoreState = [];
 
