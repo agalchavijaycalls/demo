@@ -1,11 +1,7 @@
-import {RouterState} from 'react-router-redux';
-import {State as CounterState} from './../redux/counters/state';
+import { RouterState } from 'react-router-redux';
+import { State as LayoutState } from './layout';
 
 export interface RootState {
-    router: RouterState;
-    counters: CounterState;
-    todos: TodoStoreState;
-    alert: any,
-    authentication: any,
-    registration: any
+  router: RouterState;
+  layout: LayoutState;
 }

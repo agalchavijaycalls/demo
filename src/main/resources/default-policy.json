@@ -1,0 +1,8 @@
+[
+  {
+    "name": "User view reference data",
+    "description": "User view reference data",
+    "target": "action == 'VIEW_REF_DATA'",
+    "condition": "subject.hasPermissionOnInstitute('VIEW_REF_DATA',resource)"
+  }
+]

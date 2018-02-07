@@ -1,17 +1,8 @@
-import {routerReducer as router} from 'react-router-redux';
-import {reducer as counters} from './../redux/counters';
-import {reducer as todos} from './../redux/todo';
-import {reducer as alert} from './../redux/alert';
-import {reducers as userReduer} from "./user/reducer";
-import {RootState} from './../redux/root-state';
-import {combineReducers} from 'redux';
-
+import { routerReducer } from 'react-router-redux';
+import { combineReducers } from 'redux';
+import { reducer as layoutReducer } from './layout';
+import { RootState } from './root-state';
 
 export const rootReducer = combineReducers<RootState>({
-    router,
-    counters,
-    todos,
-    alert,
-    authentication:userReduer.authReducer,
-    registration:userReduer.regReducer
+  router: routerReducer, layout: layoutReducer
 });
